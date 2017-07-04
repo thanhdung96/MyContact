@@ -2,13 +2,8 @@ package com.contact.domain;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.springframework.data.domain.Persistable;
 
-@Entity
-@Table(name = "slides")
 public class Slide implements Persistable<Integer> {
 
 	private static final long serialVersionUID = 1L;

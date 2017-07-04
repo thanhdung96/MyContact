@@ -32,5 +32,4 @@ public class SlideServiceImpl implements SlideService {
 	public void delete(int id) {
 		slideRepository.delete(id);
 	}
-
 }
