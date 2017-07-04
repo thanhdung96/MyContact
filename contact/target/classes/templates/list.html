@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div class="container main-content list" style="clear: both;">
+			<div th:if="${success}"
+				class="row alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span th:text="${success}"></span>
+			</div>
+			<a th:href="@{/contact/create}" class="btn btn-primary pull-left">
+				<span class="glyphicon glyphicon-plus"></span> Add new contact
+			</a>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="btn btn-danger" style="margin-left: 10px;">Logout</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(contacts)}">
+			<h3>No contacts</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(contacts)}">
+			<div class="container container-fluid">
+				<div class="row" style="margin-bottom: 10px;">
+					<form class="form-inline pull-right" action="/contact/search"
+						method="get">
+						<div class="form-group">
+							<input type="text" class="form-control" name="q"
+								placeholder="Type contact name..." />
+							<button type="submit" class="btn btn-primary" style="margin-left: 10px;">Search</button>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Name</th>
+								<th>Contact</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="contact,iterStat : ${contacts}">
+								<td th:text="${iterStat.count}"></td>
+								<td th:text="${contact.name}"></td>
+								<td th:text="${contact.email}"></td>
+								<td th:text="${contact.phone}"></td>
+								<td><a th:href="@{contact/{id}/edit(id=${contact.id})}"><span
+										class="glyphicon glyphicon-edit"></span></a></td>
+								<td><a th:href="@{contact/{id}/delete(id=${contact.id})}"><span
+										class="glyphicon glyphicon-remove"></span></a></td>
+							</tr>							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
